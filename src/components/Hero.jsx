@@ -1,7 +1,7 @@
 import React from 'react';
 import { personalInfo } from '../data/portfolio';
 import HeroScene3D from './HeroScene3D';
-import { ArrowDown, ArrowUpRight, Sparkles, Terminal, Code2, Cpu } from 'lucide-react';
+import { ArrowDown, ArrowUpRight, Sparkles, Terminal, Code2 } from 'lucide-react';
 
 export default function Hero() {
   const { hero, availability, github, linkedin, email } = personalInfo;
@@ -17,16 +17,16 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="relative min-h-screen flex flex-col justify-between pt-28 pb-12 sm:pb-16 overflow-hidden"
+      className="relative min-h-[92vh] sm:min-h-screen flex flex-col justify-between pt-24 sm:pt-28 pb-10 sm:pb-14 overflow-hidden"
     >
       {/* 3D Interactive WebGL Canvas as Background & Depth Layer */}
-      <div className="absolute inset-0 z-0 flex items-center justify-center opacity-85 pointer-events-auto">
+      <div className="absolute inset-0 z-0 opacity-90 pointer-events-auto">
         <HeroScene3D />
       </div>
 
       {/* Top Editorial Eyebrow & Status */}
       <div className="relative z-10 max-w-7xl mx-auto w-full px-6 sm:px-10">
-        <div className="flex flex-wrap items-center justify-between gap-4 py-2 border-b border-white/[0.08]">
+        <div className="flex flex-wrap items-center justify-between gap-3 py-2 border-b border-white/[0.08]">
           <div className="flex items-center gap-3">
             <span className="font-mono text-xs font-semibold text-[#00f0ff] tracking-[0.25em] uppercase">
               {personalInfo.name}
@@ -37,11 +37,11 @@ export default function Hero() {
             </span>
           </div>
 
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-4 sm:gap-6">
             <div className="flex items-center gap-2 font-mono text-xs text-[#94a3b8]">
-              <span className="w-2 h-2 rounded-full bg-[#10b981] animate-pulse" />
-              <span className="hidden sm:inline text-white/80">{availability.status}</span>
-              <span className="sm:hidden text-white/80">AVAILABLE</span>
+              <span className="w-2 h-2 rounded-full bg-[#10b981] animate-ping" />
+              <span className="hidden sm:inline text-white/90">{availability.status}</span>
+              <span className="sm:hidden text-white/90">AVAILABLE</span>
             </div>
             <div className="hidden md:block font-mono text-xs text-[#64748b] tracking-widest">
               LPU • CSE 2026
@@ -51,36 +51,36 @@ export default function Hero() {
       </div>
 
       {/* Main Massive Editorial Title & Content */}
-      <div className="relative z-10 max-w-7xl mx-auto w-full px-6 sm:px-10 my-auto py-12 pointer-events-none">
+      <div className="relative z-10 max-w-7xl mx-auto w-full px-6 sm:px-10 my-auto py-8 sm:py-12 pointer-events-none">
         <div className="max-w-4xl pointer-events-auto">
           {/* Status Capsule */}
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-white/10 backdrop-blur-md mb-6">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-white/15 backdrop-blur-md mb-5 shadow-lg">
             <Sparkles className="w-3.5 h-3.5 text-[#00f0ff]" />
             <span className="font-mono text-xs tracking-wider text-[#e2e8f0]">
               Creative Developer & Systems Engineer
             </span>
           </div>
 
-          {/* Huge Strategic Editorial Typography */}
-          <h1 className="font-display text-4xl sm:text-7xl lg:text-8xl font-black tracking-tight leading-[0.95] sm:leading-[0.92] text-white uppercase mb-8">
+          {/* Strategic Editorial Responsive Typography (Zero overflow) */}
+          <h1 className="font-display text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black tracking-tight leading-[1.02] sm:leading-[0.96] text-white uppercase mb-6 sm:mb-8">
             <span className="block text-gradient-subtle">{hero.headlineLine1}</span>
-            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-white via-[#00f0ff] to-[#818cf8]">
+            <span className="block text-gradient-aurora">
               {hero.headlineLine2}
             </span>
             <span className="block text-white/95">{hero.headlineLine3}</span>
           </h1>
 
           {/* Editorial Subhead */}
-          <p className="font-sans text-base sm:text-xl text-[#94a3b8] max-w-2xl font-normal leading-relaxed mb-10">
+          <p className="font-sans text-sm sm:text-lg lg:text-xl text-[#cbd5e1] max-w-2xl font-light leading-relaxed mb-8 sm:mb-10">
             {hero.subhead}
           </p>
 
           {/* CTA Button Array */}
-          <div className="flex flex-wrap items-center gap-4">
+          <div className="flex flex-wrap items-center gap-3.5 sm:gap-4">
             <button
               onClick={() => handleScrollTo('projects')}
               data-cursor-text="VIEW WORK"
-              className="group relative px-7 py-4 rounded-full bg-[#00f0ff] text-[#070709] font-mono text-xs sm:text-sm font-extrabold tracking-wider hover:bg-white hover:shadow-[0_0_30px_rgba(0,240,255,0.5)] transition-all duration-300 flex items-center gap-2"
+              className="group relative px-6 sm:px-8 py-3.5 sm:py-4 rounded-full bg-gradient-to-r from-[#00f0ff] via-[#38bdf8] to-[#818cf8] text-[#050609] font-mono text-xs sm:text-sm font-extrabold tracking-wider hover:shadow-[0_0_35px_rgba(0,240,255,0.6)] hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 flex items-center gap-2"
             >
               <span>{hero.ctaPrimary}</span>
               <ArrowDown className="w-4 h-4 group-hover:translate-y-1 transition-transform" />
@@ -89,7 +89,7 @@ export default function Hero() {
             <button
               onClick={() => handleScrollTo('contact')}
               data-cursor-text="LET'S TALK"
-              className="px-7 py-4 rounded-full bg-white/[0.04] hover:bg-white/[0.08] border border-white/15 hover:border-white/30 text-white font-mono text-xs sm:text-sm font-semibold tracking-wider backdrop-blur-md transition-all duration-300 flex items-center gap-2"
+              className="px-6 sm:px-8 py-3.5 sm:py-4 rounded-full bg-white/[0.04] hover:bg-white/[0.08] border border-white/15 hover:border-[#00f0ff]/50 text-white font-mono text-xs sm:text-sm font-semibold tracking-wider backdrop-blur-md transition-all duration-300 flex items-center gap-2 shadow-lg"
             >
               <span>{hero.ctaSecondary}</span>
               <ArrowUpRight className="w-4 h-4 text-[#00f0ff]" />
@@ -100,8 +100,8 @@ export default function Hero() {
 
       {/* Bottom Telemetry Bar */}
       <div className="relative z-10 max-w-7xl mx-auto w-full px-6 sm:px-10">
-        <div className="pt-6 border-t border-white/[0.08] flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-xs font-mono text-[#64748b]">
-          <div className="flex items-center gap-6">
+        <div className="pt-4 sm:pt-6 border-t border-white/[0.08] flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 text-xs font-mono text-[#64748b]">
+          <div className="flex items-center gap-5 sm:gap-6">
             <a
               href={github}
               target="_blank"
@@ -129,14 +129,13 @@ export default function Hero() {
             </a>
           </div>
 
-          <div className="flex items-center gap-4 text-[#94a3b8]">
+          <div className="flex items-center gap-3 sm:gap-4 text-[#94a3b8]">
             <span className="hidden md:inline">CGPA: 8.93 // CSE UNDERGRADUATE</span>
             <div className="w-1.5 h-1.5 rounded-full bg-[#00f0ff]" />
-            <span className="text-[#00f0ff]">SCROLL TO EXPLORE</span>
+            <span className="text-[#00f0ff] font-semibold">SCROLL TO EXPLORE</span>
           </div>
         </div>
       </div>
     </section>
   );
 }
-

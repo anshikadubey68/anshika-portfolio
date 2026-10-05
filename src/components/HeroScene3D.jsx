@@ -3,13 +3,12 @@ import * as THREE from 'three';
 
 /**
  * High-performance, Awwwards-grade 3D Hero Scene using Three.js.
- * Features:
- * - Floating procedural geometric core (dual-layer crystalline icosahedron with glowing wireframe)
- * - 900+ particle constellation with subtle orbital velocity
- * - Interactive mouse tilt & smooth lerping
- * - Drag-to-rotate interaction with physics inertia
- * - Scroll-based camera parallax depth
- * - IntersectionObserver to pause rendering when out of viewport for peak performance
+ * Enhanced Cyber-Luxe Theme:
+ * - Fluid full-viewport WebGL canvas (zero fitting / overflow issues)
+ * - Iridescent multi-chromatic metallic icosahedron with glowing geometric cage
+ * - Multi-colored dynamic orbital rings (Cyan & Hyper-Violet)
+ * - 850+ particle celestial constellation reacting dynamically to cursor
+ * - Damped inertia dragging and scroll camera parallax
  */
 export default function HeroScene3D() {
   const containerRef = useRef(null);
@@ -24,7 +23,7 @@ export default function HeroScene3D() {
 
     // --- Scene Setup ---
     const scene = new THREE.Scene();
-    scene.fog = new THREE.FogExp2(0x070709, 0.05);
+    scene.fog = new THREE.FogExp2(0x050609, 0.045);
 
     const camera = new THREE.PerspectiveCamera(
       45,
@@ -32,7 +31,7 @@ export default function HeroScene3D() {
       0.1,
       100
     );
-    camera.position.set(0, 0, 8.5);
+    camera.position.set(0, 0, 8.2);
 
     const renderer = new THREE.WebGLRenderer({
       alpha: true,
@@ -42,39 +41,43 @@ export default function HeroScene3D() {
     renderer.setSize(container.clientWidth, container.clientHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.2;
+    renderer.toneMappingExposure = 1.35;
     container.appendChild(renderer.domElement);
 
-    // --- Lighting ---
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
+    // --- Multi-Color Atmospheric Lighting ---
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.85);
     scene.add(ambientLight);
 
-    const pointLightCyan = new THREE.PointLight(0x00f0ff, 4, 20);
-    pointLightCyan.position.set(4, 3, 4);
-    scene.add(pointLightCyan);
+    const lightCyan = new THREE.PointLight(0x00f0ff, 5.5, 25);
+    lightCyan.position.set(5, 4, 4);
+    scene.add(lightCyan);
 
-    const pointLightViolet = new THREE.PointLight(0x818cf8, 4, 20);
-    pointLightViolet.position.set(-4, -3, 3);
-    scene.add(pointLightViolet);
+    const lightViolet = new THREE.PointLight(0xa855f7, 5.0, 25);
+    lightViolet.position.set(-5, -4, 3);
+    scene.add(lightViolet);
 
-    const pointLightTop = new THREE.PointLight(0x10b981, 2, 15);
-    pointLightTop.position.set(0, 5, 2);
-    scene.add(pointLightTop);
+    const lightEmerald = new THREE.PointLight(0x10b981, 3.0, 20);
+    lightEmerald.position.set(0, 6, 2);
+    scene.add(lightEmerald);
+
+    const lightRose = new THREE.PointLight(0xf43f5e, 2.5, 18);
+    lightRose.position.set(3, -5, -2);
+    scene.add(lightRose);
 
     // --- Central 3D Artifact Group ---
     const coreGroup = new THREE.Group();
     scene.add(coreGroup);
 
     // 1. Inner Faceted Crystalline Core
-    const innerGeometry = new THREE.IcosahedronGeometry(1.6, 1);
+    const innerGeometry = new THREE.IcosahedronGeometry(1.65, 1);
     const innerMaterial = new THREE.MeshPhysicalMaterial({
-      color: 0x0e1322,
-      emissive: 0x051020,
-      roughness: 0.15,
-      metalness: 0.85,
+      color: 0x0c1122,
+      emissive: 0x060c18,
+      roughness: 0.12,
+      metalness: 0.88,
       clearcoat: 1.0,
-      clearcoatRoughness: 0.1,
-      reflectivity: 0.9,
+      clearcoatRoughness: 0.08,
+      reflectivity: 0.95,
       wireframe: false,
       flatShading: true,
     });
@@ -82,57 +85,68 @@ export default function HeroScene3D() {
     coreGroup.add(innerMesh);
 
     // 2. Outer Luminous Wireframe Cage
-    const outerGeometry = new THREE.IcosahedronGeometry(2.1, 1);
+    const outerGeometry = new THREE.IcosahedronGeometry(2.15, 1);
     const outerWireframe = new THREE.WireframeGeometry(outerGeometry);
     const outerLine = new THREE.LineSegments(
       outerWireframe,
       new THREE.LineBasicMaterial({
         color: 0x00f0ff,
         transparent: true,
-        opacity: 0.45,
+        opacity: 0.55,
         blending: THREE.AdditiveBlending,
       })
     );
     coreGroup.add(outerLine);
 
-    // 3. Floating Geometric Rings
-    const ringGeometry = new THREE.TorusGeometry(2.8, 0.02, 16, 100);
-    const ringMaterial = new THREE.MeshBasicMaterial({
-      color: 0x818cf8,
+    // 3. Multi-Colored Floating Orbital Torus Rings
+    const ringGeometry1 = new THREE.TorusGeometry(2.85, 0.025, 16, 100);
+    const ringMaterial1 = new THREE.MeshBasicMaterial({
+      color: 0xa855f7,
+      transparent: true,
+      opacity: 0.45,
+      blending: THREE.AdditiveBlending,
+    });
+    const ringMesh1 = new THREE.Mesh(ringGeometry1, ringMaterial1);
+    ringMesh1.rotation.x = Math.PI / 3;
+    coreGroup.add(ringMesh1);
+
+    const ringGeometry2 = new THREE.TorusGeometry(3.35, 0.02, 16, 100);
+    const ringMaterial2 = new THREE.MeshBasicMaterial({
+      color: 0x00f0ff,
       transparent: true,
       opacity: 0.35,
       blending: THREE.AdditiveBlending,
     });
-    const ringMesh1 = new THREE.Mesh(ringGeometry, ringMaterial);
-    ringMesh1.rotation.x = Math.PI / 3;
-    coreGroup.add(ringMesh1);
-
-    const ringMesh2 = new THREE.Mesh(
-      new THREE.TorusGeometry(3.3, 0.015, 16, 100),
-      new THREE.MeshBasicMaterial({
-        color: 0x00f0ff,
-        transparent: true,
-        opacity: 0.25,
-        blending: THREE.AdditiveBlending,
-      })
-    );
+    const ringMesh2 = new THREE.Mesh(ringGeometry2, ringMaterial2);
     ringMesh2.rotation.y = Math.PI / 4;
     ringMesh2.rotation.x = -Math.PI / 6;
     coreGroup.add(ringMesh2);
 
+    // 4. Subtle Outer Horizon Halo
+    const ringGeometry3 = new THREE.TorusGeometry(3.9, 0.012, 16, 120);
+    const ringMaterial3 = new THREE.MeshBasicMaterial({
+      color: 0x10b981,
+      transparent: true,
+      opacity: 0.25,
+      blending: THREE.AdditiveBlending,
+    });
+    const ringMesh3 = new THREE.Mesh(ringGeometry3, ringMaterial3);
+    ringMesh3.rotation.x = Math.PI / 2;
+    coreGroup.add(ringMesh3);
+
     // --- Interactive Constellation Particle Swarm ---
-    const particleCount = 750;
+    const particleCount = 850;
     const particlePositions = new Float32Array(particleCount * 3);
     const particleColors = new Float32Array(particleCount * 3);
 
-    const cyanColor = new THREE.Color(0x00f0ff);
-    const violetColor = new THREE.Color(0x818cf8);
-    const emeraldColor = new THREE.Color(0x10b981);
+    const colorCyan = new THREE.Color(0x00f0ff);
+    const colorViolet = new THREE.Color(0xa855f7);
+    const colorEmerald = new THREE.Color(0x10b981);
+    const colorAmber = new THREE.Color(0xfbbf24);
 
     for (let i = 0; i < particleCount; i++) {
       const i3 = i * 3;
-      // Spherical distribution with slight spread
-      const radius = 2.2 + Math.random() * 5.5;
+      const radius = 2.4 + Math.random() * 5.8;
       const theta = Math.random() * Math.PI * 2;
       const phi = Math.acos(Math.random() * 2 - 1);
 
@@ -140,27 +154,22 @@ export default function HeroScene3D() {
       particlePositions[i3 + 1] = radius * Math.sin(phi) * Math.sin(theta);
       particlePositions[i3 + 2] = radius * Math.cos(phi);
 
-      const mixedColor = Math.random() > 0.5 ? cyanColor : (Math.random() > 0.5 ? violetColor : emeraldColor);
+      const rand = Math.random();
+      const mixedColor = rand < 0.4 ? colorCyan : (rand < 0.7 ? colorViolet : (rand < 0.9 ? colorEmerald : colorAmber));
       particleColors[i3] = mixedColor.r;
       particleColors[i3 + 1] = mixedColor.g;
       particleColors[i3 + 2] = mixedColor.b;
     }
 
     const particleGeometry = new THREE.BufferGeometry();
-    particleGeometry.setAttribute(
-      'position',
-      new THREE.BufferAttribute(particlePositions, 3)
-    );
-    particleGeometry.setAttribute(
-      'color',
-      new THREE.BufferAttribute(particleColors, 3)
-    );
+    particleGeometry.setAttribute('position', new THREE.BufferAttribute(particlePositions, 3));
+    particleGeometry.setAttribute('color', new THREE.BufferAttribute(particleColors, 3));
 
     const particleMaterial = new THREE.PointsMaterial({
-      size: 0.05,
+      size: 0.055,
       vertexColors: true,
       transparent: true,
-      opacity: 0.75,
+      opacity: 0.8,
       blending: THREE.AdditiveBlending,
     });
     const particleSystem = new THREE.Points(particleGeometry, particleMaterial);
@@ -171,7 +180,6 @@ export default function HeroScene3D() {
     let scrollY = 0;
     let isVisibleOnScreen = true;
 
-    // Mouse move tracking
     const onMouseMove = (event) => {
       const rect = container.getBoundingClientRect();
       const clientX = event.clientX - rect.left;
@@ -180,10 +188,12 @@ export default function HeroScene3D() {
       mouse.targetY = -(clientY / container.clientHeight) * 2 + 1;
     };
 
-    // Drag / Touch rotation
     const onPointerDown = (e) => {
       isDraggingRef.current = true;
-      prevPointerRef.current = { x: e.clientX || (e.touches && e.touches[0].clientX) || 0, y: e.clientY || (e.touches && e.touches[0].clientY) || 0 };
+      prevPointerRef.current = {
+        x: e.clientX || (e.touches && e.touches[0].clientX) || 0,
+        y: e.clientY || (e.touches && e.touches[0].clientY) || 0,
+      };
       setHintVisible(false);
     };
 
@@ -206,7 +216,6 @@ export default function HeroScene3D() {
       isDraggingRef.current = false;
     };
 
-    // Scroll parallax
     const onScroll = () => {
       scrollY = window.scrollY;
     };
@@ -220,7 +229,6 @@ export default function HeroScene3D() {
     window.addEventListener('touchmove', onPointerMove, { passive: true });
     window.addEventListener('touchend', onPointerUp);
 
-    // Resize Handler
     const handleResize = () => {
       if (!container) return;
       const width = container.clientWidth;
@@ -231,7 +239,6 @@ export default function HeroScene3D() {
     };
     window.addEventListener('resize', handleResize);
 
-    // Observer to pause when off-screen
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -253,11 +260,11 @@ export default function HeroScene3D() {
 
       const elapsedTime = clock.getElapsedTime();
 
-      // Smooth mouse lerp
+      // Mouse lerp
       mouse.x += (mouse.targetX - mouse.x) * 0.05;
       mouse.y += (mouse.targetY - mouse.y) * 0.05;
 
-      // Handle inertia from dragging
+      // Inertia dynamics
       if (!isDraggingRef.current) {
         coreGroup.rotation.y += 0.004 + rotationVelocityRef.current.y;
         coreGroup.rotation.x += 0.002 + rotationVelocityRef.current.x;
@@ -265,23 +272,21 @@ export default function HeroScene3D() {
         rotationVelocityRef.current.y *= 0.94;
       }
 
-      // Continuous subtle breathing & orbital dynamics
-      innerMesh.rotation.y = elapsedTime * 0.2;
-      innerMesh.rotation.z = elapsedTime * 0.15;
-      outerLine.rotation.y = -elapsedTime * 0.15;
-      ringMesh1.rotation.z = elapsedTime * 0.25;
-      ringMesh2.rotation.z = -elapsedTime * 0.18;
+      // Orbital rotation
+      innerMesh.rotation.y = elapsedTime * 0.22;
+      innerMesh.rotation.z = elapsedTime * 0.16;
+      outerLine.rotation.y = -elapsedTime * 0.16;
+      ringMesh1.rotation.z = elapsedTime * 0.26;
+      ringMesh2.rotation.z = -elapsedTime * 0.19;
+      ringMesh3.rotation.z = elapsedTime * 0.12;
 
-      // Particle constellation rotation
-      particleSystem.rotation.y = elapsedTime * 0.04;
-      particleSystem.rotation.x = mouse.y * 0.2;
+      particleSystem.rotation.y = elapsedTime * 0.045;
+      particleSystem.rotation.x = mouse.y * 0.22;
 
-      // Interactive mouse tilt offset
-      coreGroup.position.x = mouse.x * 0.5;
-      coreGroup.position.y = mouse.y * 0.4 - scrollY * 0.002;
+      coreGroup.position.x = mouse.x * 0.55;
+      coreGroup.position.y = mouse.y * 0.45 - scrollY * 0.002;
 
-      // Scroll parallax depth effect
-      camera.position.z = 8.5 + scrollY * 0.003;
+      camera.position.z = 8.2 + scrollY * 0.003;
       camera.position.y = -scrollY * 0.0015;
 
       renderer.render(scene, camera);
@@ -289,7 +294,6 @@ export default function HeroScene3D() {
 
     animate();
 
-    // --- Cleanup ---
     return () => {
       cancelAnimationFrame(animationFrameId);
       observer.disconnect();
@@ -307,13 +311,16 @@ export default function HeroScene3D() {
         container.removeChild(renderer.domElement);
       }
 
-      // Dispose geometries and materials
       innerGeometry.dispose();
       innerMaterial.dispose();
       outerGeometry.dispose();
       outerLine.material.dispose();
-      ringGeometry.dispose();
-      ringMaterial.dispose();
+      ringGeometry1.dispose();
+      ringMaterial1.dispose();
+      ringGeometry2.dispose();
+      ringMaterial2.dispose();
+      ringGeometry3.dispose();
+      ringMaterial3.dispose();
       particleGeometry.dispose();
       particleMaterial.dispose();
       renderer.dispose();
@@ -323,22 +330,21 @@ export default function HeroScene3D() {
   return (
     <div
       ref={containerRef}
-      className="relative w-full h-[520px] sm:h-[620px] lg:h-[720px] cursor-grab active:cursor-grabbing select-none"
+      className="absolute inset-0 w-full h-full cursor-grab active:cursor-grabbing select-none overflow-hidden"
       data-cursor-text="DRAG 3D"
     >
       {/* Interactive 3D Hint Badge */}
       {hintVisible && (
         <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-10 pointer-events-none transition-opacity duration-500">
-          <div className="px-3.5 py-1.5 rounded-full bg-[#0e1017]/80 backdrop-blur-md border border-white/10 text-[11px] font-mono text-[#94a3b8] flex items-center gap-2 shadow-lg">
+          <div className="px-4 py-1.5 rounded-full bg-[#0a0c16]/85 backdrop-blur-md border border-white/15 text-[11px] font-mono text-[#cbd5e1] flex items-center gap-2 shadow-[0_4px_20px_rgba(0,0,0,0.5)]">
             <span className="w-1.5 h-1.5 rounded-full bg-[#00f0ff] animate-ping" />
-            <span>INTERACTIVE 3D // DRAG OR MOVE CURSOR</span>
+            <span>INTERACTIVE 3D // DRAG OR HOVER TO ROTATE</span>
           </div>
         </div>
       )}
 
       {/* Subtle bottom gradient to blend into content */}
-      <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#070709] to-transparent pointer-events-none" />
+      <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#050609] to-transparent pointer-events-none" />
     </div>
   );
 }
-

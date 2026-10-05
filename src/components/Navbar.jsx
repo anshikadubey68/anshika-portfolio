@@ -9,11 +9,10 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 40);
+      setScrolled(window.scrollY > 30);
 
-      // Simple active section detector
       const sections = navigationLinks.map((item) => item.href.replace('#', ''));
-      const scrollPos = window.scrollY + 200;
+      const scrollPos = window.scrollY + 180;
 
       for (let i = sections.length - 1; i >= 0; i--) {
         const el = document.getElementById(sections[i]);
@@ -28,7 +27,6 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Prevent scroll when mobile menu is open
   useEffect(() => {
     if (mobileMenuOpen) {
       document.body.style.overflow = 'hidden';
@@ -52,8 +50,8 @@ export default function Navbar() {
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           scrolled
-            ? 'py-3.5 bg-[#070709]/80 backdrop-blur-xl border-b border-white/[0.08] shadow-[0_10px_30px_rgba(0,0,0,0.5)]'
-            : 'py-6 bg-transparent'
+            ? 'py-3 sm:py-3.5 bg-[#050609]/85 backdrop-blur-2xl border-b border-white/[0.08] shadow-[0_10px_35px_rgba(0,0,0,0.6)]'
+            : 'py-5 sm:py-6 bg-transparent'
         }`}
       >
         <div className="max-w-7xl mx-auto px-6 sm:px-10 flex items-center justify-between">
@@ -63,7 +61,7 @@ export default function Navbar() {
             onClick={(e) => handleNavClick(e, '#home')}
             className="group flex items-center gap-2.5 font-display text-xl sm:text-2xl font-black tracking-tighter text-white"
           >
-            <div className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center group-hover:border-[#00f0ff]/50 transition-colors">
+            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-white/10 to-white/5 border border-white/15 flex items-center justify-center group-hover:border-[#00f0ff]/60 group-hover:shadow-[0_0_15px_rgba(0,240,255,0.3)] transition-all">
               <span className="text-[#00f0ff] font-mono text-sm font-bold">AD</span>
             </div>
             <span className="hidden sm:inline font-mono text-xs tracking-widest text-[#94a3b8] uppercase group-hover:text-white transition-colors">
@@ -72,7 +70,7 @@ export default function Navbar() {
           </a>
 
           {/* Center Navigation Links (Desktop) */}
-          <nav className="hidden lg:flex items-center gap-1 px-4 py-1.5 rounded-full bg-[#0e1017]/70 backdrop-blur-md border border-white/[0.08] shadow-inner">
+          <nav className="hidden lg:flex items-center gap-1 px-4 py-1.5 rounded-full bg-[#0a0c16]/80 backdrop-blur-xl border border-white/[0.1] shadow-inner">
             {navigationLinks.map((link) => {
               const isActive = activeSection === link.href.replace('#', '');
               return (
@@ -82,7 +80,7 @@ export default function Navbar() {
                   onClick={(e) => handleNavClick(e, link.href)}
                   className={`px-4 py-1.5 rounded-full font-mono text-xs tracking-wider transition-all duration-200 ${
                     isActive
-                      ? 'text-white bg-white/10 shadow-[0_0_15px_rgba(255,255,255,0.05)]'
+                      ? 'text-[#00f0ff] bg-white/[0.08] shadow-[0_0_15px_rgba(0,240,255,0.2)] font-semibold'
                       : 'text-[#94a3b8] hover:text-white hover:bg-white/[0.04]'
                   }`}
                 >
@@ -95,7 +93,7 @@ export default function Navbar() {
           {/* Right Action: Status Pill & CTA */}
           <div className="flex items-center gap-3">
             {/* Availability Indicator */}
-            <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#10b981]/10 border border-[#10b981]/25 text-[11px] font-mono text-[#10b981]">
+            <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#10b981]/10 border border-[#10b981]/30 text-[11px] font-mono text-[#10b981] shadow-[0_0_15px_rgba(16,185,129,0.15)]">
               <span className="w-1.5 h-1.5 rounded-full bg-[#10b981] animate-ping" />
               <span className="tracking-wider">{personalInfo.availability.status}</span>
             </div>
@@ -104,7 +102,7 @@ export default function Navbar() {
             <a
               href="#contact"
               onClick={(e) => handleNavClick(e, '#contact')}
-              className="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#00f0ff] text-[#070709] font-mono text-xs font-bold tracking-wider hover:bg-[#00f0ff]/90 hover:shadow-[0_0_20px_rgba(0,240,255,0.4)] transition-all"
+              className="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-gradient-to-r from-[#00f0ff] to-[#38bdf8] text-[#050609] font-mono text-xs font-bold tracking-wider hover:shadow-[0_0_20px_rgba(0,240,255,0.5)] transition-all"
             >
               <span>CONNECT</span>
               <ArrowUpRight className="w-3.5 h-3.5" />
@@ -124,12 +122,12 @@ export default function Navbar() {
 
       {/* Full-Screen Mobile Editorial Menu */}
       <div
-        className={`fixed inset-0 z-40 bg-[#070709]/98 backdrop-blur-2xl transition-all duration-500 lg:hidden flex flex-col justify-between p-8 pt-28 ${
+        className={`fixed inset-0 z-40 bg-[#050609]/98 backdrop-blur-2xl transition-all duration-500 lg:hidden flex flex-col justify-between p-6 sm:p-8 pt-24 sm:pt-28 ${
           mobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
         }`}
       >
         {/* Navigation Items */}
-        <div className="flex flex-col space-y-6">
+        <div className="flex flex-col space-y-4 sm:space-y-6">
           <p className="font-mono text-xs text-[#00f0ff] tracking-[0.25em] uppercase">
             NAVIGATION INDEX
           </p>
@@ -140,9 +138,9 @@ export default function Navbar() {
               onClick={(e) => handleNavClick(e, link.href)}
               className="group flex items-baseline justify-between py-2 border-b border-white/[0.06]"
             >
-              <div className="flex items-baseline gap-4">
+              <div className="flex items-baseline gap-3 sm:gap-4">
                 <span className="font-mono text-xs text-[#64748b]">0{idx + 1}</span>
-                <span className="font-display text-3xl font-extrabold text-white group-hover:text-[#00f0ff] transition-colors">
+                <span className="font-display text-2xl sm:text-3xl font-extrabold text-white group-hover:text-[#00f0ff] transition-colors">
                   {link.name}
                 </span>
               </div>
@@ -152,10 +150,10 @@ export default function Navbar() {
         </div>
 
         {/* Mobile Menu Bottom Info */}
-        <div className="pt-8 border-t border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-xs font-mono text-[#94a3b8]">
+        <div className="pt-6 border-t border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs font-mono text-[#94a3b8]">
           <div>
             <div className="text-white font-bold">{personalInfo.name}</div>
-            <div className="text-[#64748b]">{personalInfo.role}</div>
+            <div className="text-[#64748b] text-[11px]">{personalInfo.shortRole}</div>
           </div>
           <div className="flex items-center gap-4">
             <a
@@ -180,4 +178,3 @@ export default function Navbar() {
     </>
   );
 }
-

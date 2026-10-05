@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { Play, RotateCcw, Activity, GitBranch, Zap, Navigation } from 'lucide-react';
+import React, { useState } from 'react';
+import { Activity, GitBranch, Zap, Navigation } from 'lucide-react';
 
 /**
  * Interactive Graph & Dynamic Traffic Signal Visualizer
  * Simulates C++ graph algorithms (BFS, Dijkstra, Dynamic 15-45s signal timing).
+ * Perfectly proportioned SVG with zero stretching and crisp circular nodes.
  */
 export default function TrafficGraphVisualizer() {
-  const [activeAlgorithm, setActiveAlgorithm] = useState('dijkstra'); // 'dijkstra', 'bfs', 'congestion'
+  const [activeAlgorithm, setActiveAlgorithm] = useState('dijkstra');
   const [activePath, setActivePath] = useState(['A', 'B', 'D', 'F']);
   const [signalTimings, setSignalTimings] = useState({
     A: 25,
@@ -16,16 +17,16 @@ export default function TrafficGraphVisualizer() {
     E: 20,
     F: 45,
   });
-  const [isSimulating, setIsSimulating] = useState(false);
-  const [telemetryMessage, setTelemetryMessage] = useState('Dijkstra optimal path computed [A -> B -> D -> F] (Cost: 14)');
+  const [telemetryMessage, setTelemetryMessage] = useState('Dijkstra optimal path computed [A -> B -> D -> F] (Cost: 14 units)');
 
+  // Well-proportioned coordinates inside 100 x 65 viewBox
   const nodes = [
-    { id: 'A', label: 'Node A // Northern Hub', x: 20, y: 30 },
-    { id: 'B', label: 'Node B // Central Crossing', x: 50, y: 20 },
-    { id: 'C', label: 'Node C // East Arterial', x: 80, y: 30 },
-    { id: 'D', label: 'Node D // Midtown Junction', x: 35, y: 70 },
-    { id: 'E', label: 'Node E // Industrial Loop', x: 65, y: 70 },
-    { id: 'F', label: 'Node F // Southern Terminal', x: 50, y: 90 },
+    { id: 'A', label: 'North Hub', x: 18, y: 18 },
+    { id: 'B', label: 'Central Cross', x: 50, y: 14 },
+    { id: 'C', label: 'East Arterial', x: 82, y: 18 },
+    { id: 'D', label: 'Midtown Junc', x: 30, y: 44 },
+    { id: 'E', label: 'Ind. Loop', x: 70, y: 44 },
+    { id: 'F', label: 'South Terminal', x: 50, y: 56 },
   ];
 
   const edges = [
@@ -41,7 +42,6 @@ export default function TrafficGraphVisualizer() {
 
   const runAlgorithm = (type) => {
     setActiveAlgorithm(type);
-    setIsSimulating(true);
 
     if (type === 'dijkstra') {
       setActivePath(['A', 'B', 'D', 'F']);
@@ -54,22 +54,18 @@ export default function TrafficGraphVisualizer() {
     } else if (type === 'congestion') {
       setActivePath(['A', 'C', 'E', 'F']);
       setSignalTimings({ A: 15, B: 45, C: 35, D: 45, E: 30, F: 45 });
-      setTelemetryMessage('Congestion Heuristics: Density detected on Node B/D. Dynamic green signal scaled to 45s maximum.');
+      setTelemetryMessage('Congestion Heuristics: Density detected on Node B/D. Dynamic green signal scaled to 45s.');
     }
-
-    setTimeout(() => {
-      setIsSimulating(false);
-    }, 600);
   };
 
   return (
-    <div className="rounded-2xl bg-[#090b10] border border-white/10 p-5 sm:p-7 overflow-hidden flex flex-col justify-between">
+    <div className="rounded-2xl bg-[#090b14] border border-white/10 p-4 sm:p-6 overflow-hidden flex flex-col justify-between shadow-2xl">
       {/* Simulation Header */}
-      <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-white/[0.08]">
+      <div className="flex flex-wrap items-center justify-between gap-3 pb-3.5 border-b border-white/[0.08]">
         <div className="flex items-center gap-2">
           <Activity className="w-4 h-4 text-[#00f0ff] animate-pulse" />
           <span className="font-mono text-xs text-white font-bold tracking-wider">
-            GRAPH ENGINE SIMULATION // C++ CORE
+            GRAPH ENGINE SIMULATION // C++
           </span>
         </div>
         <div className="flex items-center gap-2">
@@ -78,9 +74,16 @@ export default function TrafficGraphVisualizer() {
         </div>
       </div>
 
-      {/* SVG Interactive Canvas */}
-      <div className="relative w-full h-[260px] sm:h-[300px] my-4 select-none bg-black/40 rounded-xl border border-white/[0.05]">
-        <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+      {/* SVG Interactive Canvas with Preserved Aspect Ratio */}
+      <div className="relative w-full h-[220px] sm:h-[260px] my-3 select-none bg-black/40 rounded-xl border border-white/[0.06] overflow-hidden flex items-center justify-center">
+        <svg className="w-full h-full max-h-full" viewBox="0 0 100 65" preserveAspectRatio="xMidYMid meet">
+          <defs>
+            <filter id="cyanGlow" x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur stdDeviation="1.5" result="blur" />
+              <feComposite in="SourceGraphic" in2="blur" operator="over" />
+            </filter>
+          </defs>
+
           {/* Edges */}
           {edges.map((edge, idx) => {
             const fromNode = nodes.find((n) => n.id === edge.from);
@@ -100,16 +103,16 @@ export default function TrafficGraphVisualizer() {
                   stroke={isPathActive ? '#00f0ff' : 'rgba(255, 255, 255, 0.15)'}
                   strokeWidth={isPathActive ? '1.8' : '0.8'}
                   strokeDasharray={isPathActive ? 'none' : '2,2'}
+                  filter={isPathActive ? 'url(#cyanGlow)' : 'none'}
                   className="transition-all duration-500"
                 />
-                {/* Weight badge in midpoint */}
                 <text
                   x={(fromNode.x + toNode.x) / 2}
-                  y={(fromNode.y + toNode.y) / 2 - 1}
+                  y={(fromNode.y + toNode.y) / 2 - 1.2}
                   fill="#64748b"
-                  fontSize="2.5"
+                  fontSize="2.4"
                   textAnchor="middle"
-                  className="font-mono"
+                  className="font-mono select-none"
                 >
                   {edge.weight}
                 </text>
@@ -123,27 +126,28 @@ export default function TrafficGraphVisualizer() {
             const timing = signalTimings[node.id];
 
             return (
-              <g key={node.id} className="transition-transform duration-300">
+              <g key={node.id} className="transition-all duration-300">
                 {/* Outer signal circle */}
                 <circle
                   cx={node.x}
                   cy={node.y}
-                  r="4.5"
-                  fill="#0e1017"
-                  stroke={isHighlighted ? '#00f0ff' : 'rgba(255,255,255,0.2)'}
-                  strokeWidth={isHighlighted ? '1.5' : '0.8'}
+                  r="4.2"
+                  fill="#0d111e"
+                  stroke={isHighlighted ? '#00f0ff' : 'rgba(255,255,255,0.25)'}
+                  strokeWidth={isHighlighted ? '1.6' : '0.9'}
+                  filter={isHighlighted ? 'url(#cyanGlow)' : 'none'}
                 />
 
                 {/* Node ID */}
                 <text
                   x={node.x}
-                  y={node.y + 1}
+                  y={node.y + 0.9}
                   fill={isHighlighted ? '#00f0ff' : '#94a3b8'}
-                  fontSize="3"
+                  fontSize="2.8"
                   fontWeight="bold"
                   textAnchor="middle"
                   dominantBaseline="middle"
-                  className="font-mono"
+                  className="font-mono select-none"
                 >
                   {node.id}
                 </text>
@@ -151,11 +155,11 @@ export default function TrafficGraphVisualizer() {
                 {/* Dynamic signal timing badge */}
                 <text
                   x={node.x}
-                  y={node.y - 6}
+                  y={node.y - 5.5}
                   fill="#10b981"
                   fontSize="2.2"
                   textAnchor="middle"
-                  className="font-mono font-semibold"
+                  className="font-mono font-bold select-none"
                 >
                   {timing}s
                 </text>
@@ -165,57 +169,56 @@ export default function TrafficGraphVisualizer() {
         </svg>
 
         {/* Live Legend Floating Badge */}
-        <div className="absolute bottom-3 left-3 px-3 py-1.5 rounded-lg bg-[#0e1017]/90 border border-white/10 text-[10px] font-mono text-[#94a3b8] flex items-center gap-2">
+        <div className="absolute bottom-2 left-2 px-2.5 py-1 rounded-md bg-[#090b14]/90 backdrop-blur-md border border-white/10 text-[9px] sm:text-[10px] font-mono text-[#94a3b8] flex items-center gap-1.5">
           <span className="w-1.5 h-1.5 rounded-full bg-[#10b981]" />
-          <span>GREEN SIGNAL TIMING (15s — 45s DYNAMIC)</span>
+          <span>GREEN SIGNAL (15s — 45s DYNAMIC)</span>
         </div>
       </div>
 
       {/* Real-time Telemetry Readout */}
-      <div className="p-3 rounded-xl bg-white/[0.02] border border-white/[0.06] font-mono text-xs text-[#94a3b8] flex items-center gap-2 mb-4">
-        <span className="text-[#00f0ff] font-bold">&gt;&gt;</span>
-        <span className="truncate">{telemetryMessage}</span>
+      <div className="p-2.5 rounded-xl bg-white/[0.03] border border-white/[0.06] font-mono text-xs text-[#94a3b8] flex items-center gap-2 mb-3">
+        <span className="text-[#00f0ff] font-bold shrink-0">&gt;&gt;</span>
+        <span className="truncate text-[11px] sm:text-xs text-white/90">{telemetryMessage}</span>
       </div>
 
-      {/* Control Buttons Array */}
-      <div className="grid grid-cols-3 gap-2">
+      {/* Control Buttons Array - Responsive for all mobile screens */}
+      <div className="grid grid-cols-3 gap-1.5 sm:gap-2">
         <button
           onClick={() => runAlgorithm('dijkstra')}
-          className={`py-2 px-3 rounded-xl font-mono text-xs transition-all flex items-center justify-center gap-1.5 ${
+          className={`py-2 px-1 sm:px-3 rounded-xl font-mono text-[10px] sm:text-xs transition-all flex items-center justify-center gap-1 sm:gap-1.5 truncate ${
             activeAlgorithm === 'dijkstra'
-              ? 'bg-[#00f0ff] text-[#070709] font-bold shadow-[0_0_15px_rgba(0,240,255,0.3)]'
+              ? 'bg-[#00f0ff] text-[#050609] font-bold shadow-[0_0_15px_rgba(0,240,255,0.4)]'
               : 'bg-white/[0.04] text-white hover:bg-white/[0.08] border border-white/10'
           }`}
         >
-          <Navigation className="w-3.5 h-3.5" />
+          <Navigation className="w-3 h-3 sm:w-3.5 sm:h-3.5 shrink-0" />
           <span>DIJKSTRA</span>
         </button>
 
         <button
           onClick={() => runAlgorithm('bfs')}
-          className={`py-2 px-3 rounded-xl font-mono text-xs transition-all flex items-center justify-center gap-1.5 ${
+          className={`py-2 px-1 sm:px-3 rounded-xl font-mono text-[10px] sm:text-xs transition-all flex items-center justify-center gap-1 sm:gap-1.5 truncate ${
             activeAlgorithm === 'bfs'
-              ? 'bg-[#00f0ff] text-[#070709] font-bold shadow-[0_0_15px_rgba(0,240,255,0.3)]'
+              ? 'bg-[#00f0ff] text-[#050609] font-bold shadow-[0_0_15px_rgba(0,240,255,0.4)]'
               : 'bg-white/[0.04] text-white hover:bg-white/[0.08] border border-white/10'
           }`}
         >
-          <GitBranch className="w-3.5 h-3.5" />
+          <GitBranch className="w-3 h-3 sm:w-3.5 sm:h-3.5 shrink-0" />
           <span>BFS AUDIT</span>
         </button>
 
         <button
           onClick={() => runAlgorithm('congestion')}
-          className={`py-2 px-3 rounded-xl font-mono text-xs transition-all flex items-center justify-center gap-1.5 ${
+          className={`py-2 px-1 sm:px-3 rounded-xl font-mono text-[10px] sm:text-xs transition-all flex items-center justify-center gap-1 sm:gap-1.5 truncate ${
             activeAlgorithm === 'congestion'
-              ? 'bg-[#00f0ff] text-[#070709] font-bold shadow-[0_0_15px_rgba(0,240,255,0.3)]'
+              ? 'bg-[#00f0ff] text-[#050609] font-bold shadow-[0_0_15px_rgba(0,240,255,0.4)]'
               : 'bg-white/[0.04] text-white hover:bg-white/[0.08] border border-white/10'
           }`}
         >
-          <Zap className="w-3.5 h-3.5" />
+          <Zap className="w-3 h-3 sm:w-3.5 sm:h-3.5 shrink-0" />
           <span>CONGESTION</span>
         </button>
       </div>
     </div>
   );
 }
-
