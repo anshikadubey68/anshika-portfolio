@@ -12,6 +12,8 @@ import Achievements from './components/Achievements';
 import Certifications from './components/Certifications';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
+import Global3DCanvas from './components/Global3DCanvas';
+import { ScrollProgressHUD } from './components/ScrollReveal';
 
 export default function App() {
   const [loadingComplete, setLoadingComplete] = useState(false);
@@ -22,7 +24,11 @@ export default function App() {
       <div className="film-grain" />
 
       {/* Ambient Lighting Mesh Glow */}
+      <Global3DCanvas />
       <div className="fixed inset-0 glow-mesh pointer-events-none z-0" />
+
+      {/* Live depth indicator for the scroll-led experience */}
+      <ScrollProgressHUD />
 
       {/* Cinematic Custom Cursor */}
       <CustomCursor />

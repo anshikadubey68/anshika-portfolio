@@ -1,7 +1,8 @@
 import React from 'react';
 import { personalInfo } from '../data/portfolio';
 import HeroScene3D from './HeroScene3D';
-import { ArrowDown, ArrowUpRight, Sparkles, Terminal, Code2 } from 'lucide-react';
+import Tilt3D from './Tilt3D';
+import { ArrowDown, ArrowUpRight, Sparkles, Terminal, Code2, Cpu } from 'lucide-react';
 
 export default function Hero() {
   const { hero, availability, github, linkedin, email } = personalInfo;
@@ -17,9 +18,9 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="relative min-h-[92vh] sm:min-h-screen flex flex-col justify-between pt-24 sm:pt-28 pb-10 sm:pb-14 overflow-hidden"
+      className="relative min-h-[95vh] sm:min-h-screen flex flex-col justify-between pt-24 sm:pt-28 pb-10 sm:pb-14 overflow-hidden"
     >
-      {/* 3D Interactive WebGL Canvas as Background & Depth Layer */}
+      {/* 3D Interactive WebGL Hero Core */}
       <div className="absolute inset-0 z-0 opacity-90 pointer-events-auto">
         <HeroScene3D />
       </div>
@@ -29,7 +30,7 @@ export default function Hero() {
         <div className="flex flex-wrap items-center justify-between gap-3 py-2 border-b border-white/[0.08]">
           <div className="flex items-center gap-3">
             <span className="font-mono text-xs font-semibold text-[#00f0ff] tracking-[0.25em] uppercase">
-              {personalInfo.name}
+              {personalInfo.hero.badge}
             </span>
             <span className="hidden sm:inline text-white/20 font-mono text-xs">•</span>
             <span className="hidden sm:inline font-mono text-xs text-[#94a3b8] uppercase tracking-wider">
@@ -50,50 +51,63 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Main Massive Editorial Title & Content */}
+      {/* Main Massive Editorial Name & Vision Headline */}
       <div className="relative z-10 max-w-7xl mx-auto w-full px-6 sm:px-10 my-auto py-8 sm:py-12 pointer-events-none">
-        <div className="max-w-4xl pointer-events-auto">
+        <div className="max-w-5xl pointer-events-auto">
           {/* Status Capsule */}
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-white/15 backdrop-blur-md mb-5 shadow-lg">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-white/15 backdrop-blur-md mb-4 sm:mb-6 shadow-lg">
             <Sparkles className="w-3.5 h-3.5 text-[#00f0ff]" />
             <span className="font-mono text-xs tracking-wider text-[#e2e8f0]">
-              Creative Developer & Systems Engineer
+              Full Stack Engineer • Applied AI/ML
             </span>
           </div>
 
-          {/* Strategic Editorial Responsive Typography (Zero overflow) */}
-          <h1 className="font-display text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black tracking-tight leading-[1.02] sm:leading-[0.96] text-white uppercase mb-6 sm:mb-8">
-            <span className="block text-gradient-subtle">{hero.headlineLine1}</span>
-            <span className="block text-gradient-aurora">
-              {hero.headlineLine2}
-            </span>
-            <span className="block text-white/95">{hero.headlineLine3}</span>
-          </h1>
+          {/* Prominent Big Portfolio Signature Name */}
+          <div className="mb-4 sm:mb-6">
+            <p className="font-mono text-xs sm:text-sm text-[#00f0ff] tracking-[0.3em] uppercase mb-1 sm:mb-2 font-semibold">
+              COMPUTER SCIENCE UNDERGRADUATE
+            </p>
+            <h1 className="font-display text-6xl sm:text-8xl md:text-9xl lg:text-[10rem] xl:text-[11rem] font-black tracking-[-0.065em] leading-[0.82] text-white uppercase drop-shadow-[0_15px_35px_rgba(0,0,0,0.8)]">
+              ANSHIKA <span className="text-gradient-aurora">DUBEY</span>
+            </h1>
+          </div>
+
+          {/* Architectural Vision Statement / Big Concept Headline */}
+          <h2 className="font-display text-xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight text-white/90 uppercase leading-[1.08] mb-6 sm:mb-8 max-w-3xl">
+            “BUILDING DIGITAL EXPERIENCES{' '}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00f0ff] via-[#38bdf8] to-[#8b5cf6]">
+              THAT THINK.
+            </span>”
+          </h2>
 
           {/* Editorial Subhead */}
           <p className="font-sans text-sm sm:text-lg lg:text-xl text-[#cbd5e1] max-w-2xl font-light leading-relaxed mb-8 sm:mb-10">
             {hero.subhead}
           </p>
 
-          {/* CTA Button Array */}
+          {/* CTA Button Array with 3D Tilt */}
           <div className="flex flex-wrap items-center gap-3.5 sm:gap-4">
-            <button
-              onClick={() => handleScrollTo('projects')}
-              data-cursor-text="VIEW WORK"
-              className="group relative px-6 sm:px-8 py-3.5 sm:py-4 rounded-full bg-gradient-to-r from-[#00f0ff] via-[#38bdf8] to-[#818cf8] text-[#050609] font-mono text-xs sm:text-sm font-extrabold tracking-wider hover:shadow-[0_0_35px_rgba(0,240,255,0.6)] hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 flex items-center gap-2"
-            >
-              <span>{hero.ctaPrimary}</span>
-              <ArrowDown className="w-4 h-4 group-hover:translate-y-1 transition-transform" />
-            </button>
+            <Tilt3D scale={1.03}>
+              <button
+                onClick={() => handleScrollTo('projects')}
+                data-cursor-text="VIEW WORK"
+                className="group relative px-6 sm:px-8 py-3.5 sm:py-4 rounded-full bg-gradient-to-r from-[#00f0ff] via-[#38bdf8] to-[#8b5cf6] text-[#050609] font-mono text-xs sm:text-sm font-extrabold tracking-wider hover:shadow-[0_0_35px_rgba(0,240,255,0.6)] active:scale-[0.98] transition-all duration-300 flex items-center gap-2 shadow-2xl"
+              >
+                <span>{hero.ctaPrimary}</span>
+                <ArrowDown className="w-4 h-4 group-hover:translate-y-1 transition-transform" />
+              </button>
+            </Tilt3D>
 
-            <button
-              onClick={() => handleScrollTo('contact')}
-              data-cursor-text="LET'S TALK"
-              className="px-6 sm:px-8 py-3.5 sm:py-4 rounded-full bg-white/[0.04] hover:bg-white/[0.08] border border-white/15 hover:border-[#00f0ff]/50 text-white font-mono text-xs sm:text-sm font-semibold tracking-wider backdrop-blur-md transition-all duration-300 flex items-center gap-2 shadow-lg"
-            >
-              <span>{hero.ctaSecondary}</span>
-              <ArrowUpRight className="w-4 h-4 text-[#00f0ff]" />
-            </button>
+            <Tilt3D scale={1.03}>
+              <button
+                onClick={() => handleScrollTo('contact')}
+                data-cursor-text="LET'S TALK"
+                className="px-6 sm:px-8 py-3.5 sm:py-4 rounded-full bg-white/[0.04] hover:bg-white/[0.08] border border-white/15 hover:border-[#00f0ff]/50 text-white font-mono text-xs sm:text-sm font-semibold tracking-wider backdrop-blur-md transition-all duration-300 flex items-center gap-2 shadow-lg"
+              >
+                <span>{hero.ctaSecondary}</span>
+                <ArrowUpRight className="w-4 h-4 text-[#00f0ff]" />
+              </button>
+            </Tilt3D>
           </div>
         </div>
       </div>

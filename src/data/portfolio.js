@@ -10,6 +10,8 @@
 
 export const personalInfo = {
   name: "Anshika Dubey",
+  firstName: "Anshika",
+  lastName: "Dubey",
   initials: "AD",
   role: "Computer Science & Engineering Student | Full Stack Developer | AI/ML Enthusiast",
   shortRole: "Full Stack Developer • AI/ML",
@@ -19,28 +21,85 @@ export const personalInfo = {
   email: "anshikadubey68@gmail.com",
   github: "https://github.com/anshikadubey68",
   linkedin: "https://www.linkedin.com/in/anshikadubey",
-  resumeUrl: "#contact", // or link to PDF in public folder
+  resumeUrl: "#contact",
   availability: {
     status: "OPEN TO OPPORTUNITIES",
     active: true,
     detail: "Available for Internships, SWE Roles & High-Impact Projects",
   },
   hero: {
-    badge: "ANSHIKA DUBEY // PORTFOLIO 2026",
-    headlineLine1: "BUILDING DIGITAL",
-    headlineLine2: "EXPERIENCES",
-    headlineLine3: "THAT THINK.",
+    badge: "PORTFOLIO // 2026 ARCHIVE",
+    greeting: "HELLO WORLD, I AM",
+    title: "ANSHIKA DUBEY",
+    tagline: "BUILDING DIGITAL EXPERIENCES THAT THINK.",
     subhead:
-      "Computer Science & Engineering student focused on full-stack architecture, applied AI/ML systems, and crafting responsive, high-performance digital products.",
+      "Computer Science & Engineering undergraduate at Lovely Professional University focused on full-stack architecture, graph algorithms, applied AI/ML systems, and crafting responsive, high-performance digital products.",
     ctaPrimary: "EXPLORE SELECTED WORK",
     ctaSecondary: "LET'S CONNECT",
   },
   about: {
     statement: "I DON'T JUST WRITE CODE. I BUILD EXPERIENCES.",
-    narrative1:
-      "I am a Computer Science & Engineering undergraduate at Lovely Professional University with a rigorous foundation in algorithms and software engineering. My work bridges the gap between resilient backend architectures, intuitive human interfaces, and applied artificial intelligence.",
-    narrative2:
-      "From graph-theoretic traffic algorithms and sub-50ms industrial IoT failover mechanisms to multilingual computer vision models in agriculture, I love solving hard technical challenges that have tangible real-world utility.",
+    leadParagraph:
+      "I am a Computer Science & Engineering undergraduate at Lovely Professional University (8.93 CGPA) passionate about engineering software that operates at the intersection of deep algorithmic rigor, resilient backend architectures, and applied artificial intelligence.",
+    storyParagraph1:
+      "My journey in computer science began with algorithmic problem solving — dissecting graph theory, discrete data structures, and asymptotic optimizations in C++. That foundational discipline taught me to look beyond surface-level code and analyze system complexity from memory layouts and cache locality to time complexities.",
+    storyParagraph2:
+      "As my curiosity expanded into full-stack engineering, I began architecting distributed platforms that handle real-time concurrency. From engineering industrial IoT dashboards with sub-50ms automated failover mechanisms to constructing secure session management with scrypt and OTP verification, I prioritize reliability, low latency, and zero-downtime fault tolerance.",
+    storyParagraph3:
+      "During my AI internship at Infosys Springboard, I spearheaded AgroBot — an intelligent agricultural assistant uniting Convolutional Neural Networks (CNNs) for foliar crop disease classification across 15 distinct classes with fuzzy semantic parsing in 6 languages. I believe applied AI should be democratic, accessible, and solve pressing real-world challenges.",
+    storyParagraph4:
+      "Today, I enjoy taking an idea from a clear problem statement to a polished, usable product: defining the data flow, choosing the right algorithms, designing calm interfaces, and measuring what matters after launch. I am especially interested in teams where thoughtful engineering can make complex technology feel simple and dependable for people.",
+
+    pillars: [
+      {
+        number: "01",
+        title: "Algorithmic & Graph Systems",
+        tag: "C++ • DSA • Graph Theory",
+        description:
+          "Specializing in directed graph representations, Dijkstra's shortest-path with priority queues, BFS/DFS topological traversal, and complexity minimization. Proven ability to design custom heuristics for dynamic network routing.",
+        metrics: "O(V + E) Traversals • Memory Safe",
+      },
+      {
+        number: "02",
+        title: "Mission-Critical Full Stack",
+        tag: "Node.js • React • Express • MongoDB",
+        description:
+          "Designing high-throughput microservices, real-time WebSocket/REST telemetry ingestion, finite state machines for automated fault recovery (<50ms), and enterprise auth pipelines (scrypt, HTTP-only cookies, OTP).",
+        metrics: "Sub-50ms Failovers • 98.5% Downtime Cut",
+      },
+      {
+        number: "03",
+        title: "Applied AI, Vision & NLP",
+        tag: "TensorFlow • Keras • CNN • RapidFuzz",
+        description:
+          "Developing end-to-end deep learning pipelines: Convolutional Neural Network architectures for multi-class image diagnostics, transfer learning, fuzzy colloquial token matching, and low-latency Flask edge inference.",
+        metrics: "15 Disease Classes • 6 Dialects",
+      },
+      {
+        number: "04",
+        title: "Spatial & Creative Engineering",
+        tag: "WebGL • Three.js • Modern CSS",
+        description:
+          "Bridging visual craft with technical engineering. Crafting immersive 3D WebGL canvases, interactive perspective physics, fluid spring damping, and accessible editorial typography that makes software feel memorable.",
+        metrics: "60-120 FPS • Sub-Second TTI",
+      },
+    ],
+
+    principles: [
+      {
+        title: "Deterministic Over Ambiguous",
+        desc: "I architect software with mathematically provable state machines and explicit error boundaries rather than relying on happy-path assumptions.",
+      },
+      {
+        title: "Latency & Efficiency Obsessed",
+        desc: "From query indexing and memory allocations in C++ to client-side GPU shader rendering, performance is treated as a foundational feature.",
+      },
+      {
+        title: "Human-Centric Real Utility",
+        desc: "I build technology that solves tangible societal problems — whether optimizing city traffic signals or empowering multilingual farmers with AI.",
+      },
+    ],
+
     stats: [
       {
         value: "8.93",
@@ -54,8 +113,8 @@ export const personalInfo = {
         numericValue: 3,
         decimals: 0,
         suffix: "+",
-        label: "Major Projects",
-        caption: "Engineered from scratch",
+        label: "Major Systems Built",
+        caption: "Architected end-to-end",
       },
       {
         value: "6",
@@ -143,6 +202,14 @@ export const skillsData = {
 export const projectsData = [
   {
     id: "traffic-control",
+    displayTitle: "Smart Traffic Signal Control",
+    overview: "A graph-based system for responsive urban routing.",
+    brief: "I modelled the road network as a weighted graph and used live density to identify efficient paths and signal windows.",
+    outcomes: [
+      "Mapped 6 intersections and 8+ road segments as a weighted graph.",
+      "Used BFS, DFS, and Dijkstra's algorithm for routing and connectivity checks.",
+      "Adjusted signal windows from 15 to 45 seconds based on queue pressure.",
+    ],
     number: "01",
     featuredBadge: "ALGORITHMS & NETWORKS",
     title: "Smart Traffic Signal Control System",
@@ -174,6 +241,14 @@ export const projectsData = [
   },
   {
     id: "stream-changeover",
+    displayTitle: "Automated Stream Changeover",
+    overview: "Industrial telemetry with automated fault recovery.",
+    brief: "A dashboard that detects irregularities across pipeline streams and activates safe, automated flow redirection.",
+    outcomes: [
+      "Monitored 4 parallel streams with a 2-second telemetry refresh.",
+      "Built a failover state machine that responds in under 50 milliseconds.",
+      "Added secure sessions, OTP verification, and HTTP-only cookies.",
+    ],
     number: "02",
     featuredBadge: "FULL STACK & IIOT",
     title: "Automated Stream Changeover — Flow Metering System",
@@ -215,6 +290,14 @@ export const projectsData = [
   },
   {
     id: "agrobot",
+    displayTitle: "AgroBot",
+    overview: "Multilingual crop-disease guidance powered by AI.",
+    brief: "A farmer-focused assistant that pairs crop-image classification with fuzzy multilingual symptom search.",
+    outcomes: [
+      "Classified healthy and diseased crops across 15 image classes.",
+      "Supported symptom queries in 6 regional languages.",
+      "Delivered farmer and administrator workflows through a Flask API.",
+    ],
     number: "03",
     featuredBadge: "AI & COMPUTER VISION",
     title: "AgroBot — AI Multilingual Crop Disease Detection",
@@ -293,7 +376,7 @@ export const educationData = [
       "Computer Networks & Web Systems",
     ],
     description:
-      "Pursuing a comprehensive curriculum centered around computer science principles, algorithmic optimization, distributed systems, and cutting-edge machine learning methodologies.",
+      "Pursuing a rigorous curriculum centered around computer science principles, algorithmic optimization, distributed systems, and cutting-edge machine learning methodologies.",
   },
 ];
 
@@ -374,4 +457,3 @@ export const navigationLinks = [
   { name: "EXPERIENCE", href: "#experience" },
   { name: "CONTACT", href: "#contact" },
 ];
-
